@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "engines": {
     "node": "10.15.1"
