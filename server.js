@@ -343,7 +343,7 @@ bot.onText(new RegExp('\/start'), (msg) => {
 
     
     getUniversities(msg);
-
+    
     // action = msg.text.split(' ')
     // console.log(msg);
     // otm_id = (action[1]) ? action[1] : 380
