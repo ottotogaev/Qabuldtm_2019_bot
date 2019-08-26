@@ -339,7 +339,7 @@ function dataInfo(msg, otm_id, lang_id, eduType_id, yunalish_id) {
 }
 // console.log(opt);
 
-bot.onText(/^\/start/, (msg) => {
+bot.onText(new RegExp('\/start'), (msg) => {
 
     
     getUniversities(msg);
