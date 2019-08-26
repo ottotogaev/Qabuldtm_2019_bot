@@ -10,7 +10,6 @@ var bot = new Telegrambot(token, {
     polling: true
 });
 
-
 ///TATU
 
 var url = 'http://qabul.dtm.uz/data/day.json';
