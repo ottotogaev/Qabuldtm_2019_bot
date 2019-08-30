@@ -1,1 +1,1 @@
-# Qabuldtm_2019_bot
+# Qabuldtm 2019 Telegram bot
