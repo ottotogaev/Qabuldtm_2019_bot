@@ -344,13 +344,6 @@ bot.onText(new RegExp('\/start'), (msg) => {
     
     getUniversities(msg);
     
-    // action = msg.text.split(' ')
-    // console.log(msg);
-    // otm_id = (action[1]) ? action[1] : 380
-
-    // getLanguages(msg, otm_id);
-
-    // bot.sendMessage(msg.chat.id, '*Assalomu Alaykum!*\nIltimos botdan foydalanish uchun o\'zingiz topshirgan tilni tanlang', inl_key_lang)
 });
 
 // '*Assalomu Alaykum!*\nIltimos botdan foydalanish uchun o\'zingizga mos tilni tanlang \n\n*Здравствуйте*! \nЧтобы начать пользоваться с ботом, выберьте вам подходящий язык'
