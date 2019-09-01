@@ -1,6 +1,5 @@
 var Telegrambot = require('node-telegram-bot-api');
 const request = require('request');
-var fs = require('fs');
 // var config = require('./config');
 
 
@@ -17,11 +16,12 @@ const options = {
     }
 }
 
-const url = process.env.APP_URL
+const APP_URL = process.env.APP_URL
 const bot = new Telegrambot(TOKEN, options);
+
 ///TATU
 
-bot.setWebHook(`${url}/bot${TOKEN}`);
+bot.setWebHook(`${APP_URL}/bot${TOKEN}`);
 
 var url = 'http://qabul.dtm.uz/data/day.json';
 
