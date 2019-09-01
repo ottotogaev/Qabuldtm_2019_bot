@@ -1,16 +1,27 @@
 var Telegrambot = require('node-telegram-bot-api');
 const request = require('request');
+var fs = require('fs');
+// var config = require('./config');
+
 
 // Устанавливаем токен, который выдавал нам бот
-var token = '724992864:AAH1Pknii6xDrHHGYIBo9FWvOpPXsD9le1Q';
+const TOKEN = process.env.TOKEN || '724992864:AAH1Pknii6xDrHHGYIBo9FWvOpPXsD9le1Q';
+// var token = '724992864:AAH1Pknii6xDrHHGYIBo9FWvOpPXsD9le1Q';
+
 
 // Включить опрос сервера
 
-var bot = new Telegrambot(token, {
-    polling: true
-});
+const options = {
+    webHook: {
+        port: process.env.PORT
+    }
+}
 
+const url = process.env.APP_URL
+const bot = new Telegrambot(TOKEN, options);
 ///TATU
+
+bot.setWebHook(`${url}/bot${TOKEN}`);
 
 var url = 'http://qabul.dtm.uz/data/day.json';
 
@@ -108,7 +119,7 @@ function getUniversities(msg, page = 1) {
         401: 'O\'zbekiston milliy universiteti Jizzax filiali',
         402: 'Toshkent kimyo-texnologiya instituti Yangiyer filiali'
     }
-    // json_parse = JSON.parse(body);
+
     var page_count = Math.ceil(Object.keys(universities).length / 10)
     var UniversitiesList = Object.keys(universities).slice(10 * (page - 1), 10 * page).reduce((result, key) => {
         result[key] = universities[key];
@@ -197,7 +208,7 @@ function getLanguages(msg, otm_id) {
             6: '🇹🇲 Turkmancha',
             7: '🇰🇬 Qirgizcha'
         }
-        
+
         var languagesList = body[otm_id];
         var keyboard = [];
         for (lang_id in languagesList) {
@@ -272,12 +283,12 @@ function yunalish(msg, otm_id, lang_id, eduType_id) {
     }, function (err, res, body) {
 
         // if (err) throw err
-        
+
         var tatu_yunalish = body[otm_id][lang_id][eduType_id];
-        
+
         var keyb_yunalish = [];
         for (yunalish_id in tatu_yunalish) {
-            
+
             if (tatu_yunalish[yunalish_id]["name"]) {
                 keyb_yunalish.push([{
                     text: tatu_yunalish[yunalish_id]["name"],
@@ -322,14 +333,14 @@ function dataInfo(msg, otm_id, lang_id, eduType_id, yunalish_id) {
             // parse_mode: 'markdown',
             disable_web_page_preview: true,
             'reply_markup': {
-            
+
                 inline_keyboard: [
                     [{
                         text: '⬅️Orqaga',
                         callback_data: 'gotoBack4_' + otm_id + '_' + lang_id + '_' + eduType_id
                     }]
                 ]
-            
+
             }
         });
 
@@ -341,13 +352,12 @@ function dataInfo(msg, otm_id, lang_id, eduType_id, yunalish_id) {
 
 bot.onText(new RegExp('\/start'), (msg) => {
 
-    
+
     getUniversities(msg);
-    
+
 });
 
 // '*Assalomu Alaykum!*\nIltimos botdan foydalanish uchun o\'zingizga mos tilni tanlang \n\n*Здравствуйте*! \nЧтобы начать пользоваться с ботом, выберьте вам подходящий язык'
-
 
 bot.on('callback_query', (msg) => {
     action = msg.data.split('_');
@@ -382,11 +392,9 @@ bot.on('callback_query', (msg) => {
 
     }
     if (action[0] == 'gotoBack2') {
-        
+
         // console.log(action[0])
         getLanguages(msg, action[1]);
-
-        // console.log(getLanguages);
 
     }
     if (action[0] == 'gotoBack3') {
@@ -400,7 +408,7 @@ bot.on('callback_query', (msg) => {
 
 });
 
-console.log('server oNNNN....');
+console.log('Server is Running ....');
 
 
 // bot.onText(new RegExp('\/test'), (msg, match) => {
